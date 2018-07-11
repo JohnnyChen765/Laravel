@@ -4,7 +4,6 @@
 @endsection
 
 @section('content')
-    Voici vos listes :<br>
     <!--<form action='home' method="post" >
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <p>
@@ -25,18 +24,25 @@
     <div class='container'> 
         <div class='row'>
             @foreach($list_array as $liste) <!-- reçoit du controller $list_array contenant list_name,commentaire,done-->
-                <div class='col-lg-3 offset-lg-0 list'>
-                    <h2><a href="{{ 'home/list/'.$liste->list_id}}"> {{$liste->list_name}}</a></h2>
-                    <p>{{$liste->commentaires}}</p>
-                    <!--{{Form::open(array('method'=>'delete','route' => array('deleteList',$liste->list_id)))}}-->
-                    {{Form::open(['method' => 'DELETE', 'route' => ['deleteList', $liste->list_id]])}}
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <p>
-                            <input class='delete_button' type="submit" value="delete">
-                        </p>
-                    {{Form::close()}}
-                           
-                </div>
+                <ul><li>{{Form::open(['method' => 'DELETE', 'route' => ['deleteList', $liste->list_id]])}}
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <p>
+                                <input class='delete_button' type="submit" value="delete">
+                            </p>
+                        {{Form::close()}} 
+                     <!--{{Form::open(array('method'=>'delete','route' => array('deleteList',$liste->list_id)))}}-->    
+                @if($liste->done)
+                    <div class='col-lg-3 offset-lg-0 list done'>
+                        <h2><a href="{{ 'home/list/'.$liste->list_id}}"> {{$liste->list_name}}</a></h2>
+                        <p>{{$liste->commentaires}}</p>
+                    </div>
+                @else
+                    <div class='col-lg-3 offset-lg-0 list not_done'>
+                        <h2><a href="{{ 'home/list/'.$liste->list_id}}"> {{$liste->list_name}}</a></h2>
+                        <p>{{$liste->commentaires}}</p>
+                    </div>
+                @endif
+                </li></ul>
             @endforeach
         </div>
 @endsection

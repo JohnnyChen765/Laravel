@@ -21,7 +21,7 @@ class listPage_controller extends Controller
                         ->value('id');*/
         $id_user = Auth::user()->id ; 
         $listUser = new listUser_model;
-        $list_array = $listUser->select('list_name','commentaires','done?','list_id')->where('user_id','=',$id_user)->get(); 
+        $list_array = $listUser->select('list_name','commentaires','done','list_id')->where('user_id','=',$id_user)->get(); 
         return view('listPage',['list_array'=>$list_array]);
     }
 
@@ -31,7 +31,7 @@ class listPage_controller extends Controller
         $id_user = Auth::user()->id ; 
         $listUser= new listUser_model;
         $listUser->insert(['list_name'=>$list_name,'user_id'=>$id_user,'commentaires'=>$commentaires]);
-        //$list_array = $listUser->select('list_name','commentaires','done?','list_id')->where('user_id','=',$id_user)->get(); 
+        //$list_array = $listUser->select('list_name','commentaires','done','list_id')->where('user_id','=',$id_user)->get(); 
         return redirect('logged/home');
         //return view('listPage',['list_array'=>$list_array]);
     }
@@ -40,7 +40,7 @@ class listPage_controller extends Controller
         $id_user = Auth::user()->id ; 
         $listUser= new listUser_model;
         $listUser->where('list_id','=',$list_id)->delete();
-        //$list_array = $listUser->select('list_name','commentaires','done?','list_id')->where('user_id','=',$id_user)->get(); 
+        //$list_array = $listUser->select('list_name','commentaires','done','list_id')->where('user_id','=',$id_user)->get(); 
         return redirect('logged/home');
     }
 }

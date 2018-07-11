@@ -9,8 +9,17 @@ body{
     margin-right: auto;
     margin-left: auto;
   }
-[class*="col-"]{
+div[class*="col-"].not_done{
     background-color : #C0FFF4;
     border : 2px solid black;
     border-radius : 3px;
+}
+div[class*="col-"].done{
+    background-color : green;
+    border : 2px solid black;
+    border-radius : 3px;
+}
+.checkboxSize{
+    width: 20px;
+    height: 20px;
 }

@@ -9,7 +9,10 @@ class taskPage_controller extends Controller
 {
     public function showTask($list_id){//reçoit la variable {list_id} de la route
         $task_model = new taskList_model;
-        $task_array = $task_model->select('task_id','task_name','list_id','commentaires','done?')->where('list_id','=',$list_id)->get();
+        $task_array = $task_model->select('task_id','task_name','list_id','commentaires','done')
+                                 ->where('list_id','=',$list_id)
+                                 ->orderByRaw('done ASC')
+                                 ->get();
         return view('taskPage',['task_array'=>$task_array,'list_id'=>$list_id]);
     }
 
@@ -17,7 +20,7 @@ class taskPage_controller extends Controller
 
         $taskList= new taskList_model;
         $taskList->insert(['task_name'=>$_POST['task_name'],'list_id'=>$list_id,'commentaires'=>$_POST['commentaires']]);
-        //$task_array = $taskList->select('task_id','task_name','list_id','commentaires','done?')->where('list_id','=',$list_id)->get();
+        //$task_array = $taskList->select('task_id','task_name','list_id','commentaires','done')->where('list_id','=',$list_id)->get();
 
         //return view('taskPage',['task_array'=>$task_array]);
         return redirect()->route('showTask',$list_id);

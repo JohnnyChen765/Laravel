@@ -18,16 +18,34 @@
     <div class='container'> 
         <div class='row'>
             @foreach($task_array as $task) <!-- reçoit du controller $list_array contenant list_name,commentaire,done-->
-                <div class='col-lg-3 offset-lg-0 list'>
-                    <h2>{{$task->task_name}}</h2>
-                    <p>{{$task->commentaires}}</p>
+                <ul><li>    
                     {{Form::open(['method' => 'DELETE', 'route' => ['deleteTask',$list_id, $task->task_id]])}}
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <p>
-                            <input class='delete_button' type="submit" value="delete">
-                        </p>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <p><input class='delete_button' type="submit" value="delete"></p>
                     {{Form::close()}}
-                </div>
+
+                    @if($task->done)
+                        {{Form::open(['method' => 'UPDATE', 'route' => ['deleteTask',$list_id, $task->task_id]])}}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        done
+                        {{Form::checkbox('checkbox', 'done',true, array('class' => 'checkboxSize'))}}
+                        {{Form::close()}}
+                        <div class='col-lg-3 offset-lg-0 list done '>
+                            <h2>{{$task->task_name}}</h2>
+                            <p>{{$task->commentaires}}</p>
+                        </div>
+                    @else
+                        {{Form::open(['method' => 'UPDATE', 'route' => ['deleteTask',$list_id, $task->task_id]])}}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        done
+                        {{Form::checkbox('checkbox', 'done',null, array('class' => 'checkboxSize'))}}
+                        {{Form::close()}}
+                        <div class='col-lg-3 offset-lg-0 list not_done '>
+                            <h2>{{$task->task_name}}</h2>
+                            <p>{{$task->commentaires}}</p>
+                        </div>
+                    @endif
+                    </li></ul>
             @endforeach
         </div>
 @endsection
