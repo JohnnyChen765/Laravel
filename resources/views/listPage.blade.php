@@ -4,6 +4,10 @@
     <link href="{{ asset('css/dropDownCreatecss.css') }}" rel="stylesheet" type="text/css" >
 @endsection
 
+@section('form_type')
+Créer une liste
+@endsection
+
 @section('form_content')
     <!--<form action='home' method="post" >
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
