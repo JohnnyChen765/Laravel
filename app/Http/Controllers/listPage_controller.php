@@ -21,7 +21,9 @@ class listPage_controller extends Controller
                         ->value('id');*/
         $id_user = Auth::user()->id ; 
         $listUser = new listUser_model;
-        $list_array = $listUser->select('list_name','commentaires','done','list_id')->where('user_id','=',$id_user)->get(); 
+        $list_array = $listUser->select('list_name','commentaires','done','list_id')
+                               ->where('user_id','=',$id_user)
+                               ->get(); 
         return view('listPage',['list_array'=>$list_array]);
     }
 
